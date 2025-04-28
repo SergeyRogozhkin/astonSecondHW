@@ -67,4 +67,46 @@ class UserDaoTest {
         assertNotNull(found.getCreatedAt());
     }
 
+    @Test
+    void testGetAll() {
+        User user1 = new User();
+        user1.setName("Bob");
+        userDAO.create(user1);
+
+        User user2 = new User();
+        user2.setName("Charlie");
+        userDAO.create(user2);
+
+        List<User> users = userDAO.getAll();
+
+        assertEquals(2, users.size());
+    }
+
+    @Test
+    void testUpdate() {
+        User user = new User();
+        user.setName("Eve");
+        userDAO.create(user);
+
+        user.setName("Updated Eve");
+        userDAO.update(user);
+
+        User updatedUser = userDAO.getById(user.getId());
+
+        assertEquals("Updated Eve", updatedUser.getName());
+    }
+
+    @Test
+    void testDelete() {
+        User user = new User();
+        user.setName("Deleted User");
+        userDAO.create(user);
+
+        userDAO.delete(user.getId());
+
+        User deletedUser = userDAO.getById(user.getId());
+
+        assertNull(deletedUser);
+    }
 }
+

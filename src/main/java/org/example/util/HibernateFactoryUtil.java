@@ -11,7 +11,7 @@ import java.util.Properties;
 
 public class HibernateFactoryUtil {
     //убрал final и статическую инициализацию, теперь фабрику можно пересоздавать с новыми настройками
-    private static SessionFactory sessionFactory;
+    private static SessionFactory sessionFactory = getSessionFactory();
 
 
     public static SessionFactory getSessionFactory() {
@@ -27,14 +27,14 @@ public class HibernateFactoryUtil {
                 settings.put(Environment.DRIVER,
                         System.getProperty("hibernate.connection.driver_class", "org.postgresql.Driver"));
                 settings.put(Environment.URL,
-                        System.getProperty("hibernate.connection.url"));
+                        System.getProperty("hibernate.connection.jdbc:postgresql://localhost:5432/user_service"));
                 settings.put(Environment.USER,
-                        System.getProperty("hibernate.connection.username"));
+                        System.getProperty("hibernate.connection.postgres"));
                 settings.put(Environment.PASS,
-                        System.getProperty("hibernate.connection.password"));
+                        System.getProperty("hibernate.connection.admin"));
 
                 settings.put(Environment.DIALECT, "org.hibernate.dialect.PostgreSQLDialect");
-                settings.put(Environment.HBM2DDL_AUTO, "update");
+                settings.put(Environment.HBM2DDL_AUTO, "create-drop");
                 settings.put(Environment.SHOW_SQL, "true");
 
                 configuration.setProperties(settings);
