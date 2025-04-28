@@ -5,6 +5,7 @@ import org.example.util.HibernateFactoryUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import javax.management.Query;
 import java.util.List;
 
 public class UserDAOImpl implements UserDAO {
@@ -27,7 +28,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public List<User> getAll() {
         try (Session session = HibernateFactoryUtil.getSessionFactory().openSession()) {
-            return session.createQuery("from User", User.class).list();
+            return session.createQuery("FROM User", User.class).list();
         }
     }
 
